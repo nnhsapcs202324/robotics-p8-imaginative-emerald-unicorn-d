@@ -23,11 +23,13 @@ public class FinchLessons
         //lesson4_MotorControl(bird);
         boolean run = true;
         while(run){
-           lesson5(bird);
+           lesson9(bird);
            if(bird.getButton("A")){
                run = false;
            }
         }
+        
+        
         bird.disconnect();
         
     } 
@@ -127,5 +129,55 @@ public class FinchLessons
             }
         }
         bird.stopAll();
+    }
+    
+    public static void lesson7(Finch bird){
+        while(bird.getLight("R") > 5)
+        {
+            bird.setTail(1, 100, 0, 0);
+            bird.pause(0.1);
+            bird.setTail(1, 0, 0, 0);
+            bird.pause(0.1);
+            
+            bird.setMove("F",10, 100);
+        }
+        
+        bird.stopAll();
+    }
+    
+    public static void lesson9(Finch bird){
+        System.out.println("Place Finch over a white surface");
+        bird.pause(5);
+        double white = (bird.getLine("R") + bird.getLine("L"))/2;
+        
+        
+        System.out.println("Place Finch over a black surface");
+        bird.pause(5);
+        double black = (bird.getLine("R") + bird.getLine("L"))/2;
+       
+        
+        double threshold = (white + black) / 2;
+        System.out.println("threshold: " + threshold);
+        
+        while(!bird.getButton("A"))
+        {
+            if(bird.getDistance() > 5)
+            {
+                if((bird.getLine("R") < threshold))
+            {
+                bird.setMotors(30,0);
+            }
+            else
+            {
+                bird.setMotors(0,30);
+            }
+            }
+            else
+            {
+                bird.stop();
+            }
+            
+        }
+        bird.stop();
     }
 }
