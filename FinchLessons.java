@@ -147,37 +147,58 @@ public class FinchLessons
     
     public static void lesson9(Finch bird){
         System.out.println("Place Finch over a white surface");
-        bird.pause(5);
-        double white = (bird.getLine("R") + bird.getLine("L"))/2;
+            bird.pause(5);
+            double white = (bird.getLine("R") + bird.getLine("L"))/2;
         
         
-        System.out.println("Place Finch over a black surface");
-        bird.pause(5);
-        double black = (bird.getLine("R") + bird.getLine("L"))/2;
+            System.out.println("Place Finch over a black surface");
+            bird.pause(5);
+            double black = (bird.getLine("R") + bird.getLine("L"))/2;
        
         
-        double threshold = (white + black) / 2;
-        System.out.println("threshold: " + threshold);
+            double threshold = (white + black) / 2;
+            System.out.println("threshold: " + threshold);
         
         while(!bird.getButton("A"))
         {
-            if(bird.getDistance() > 5)
+            
+            
+            if((bird.getLine("R") > threshold) || (bird.getLine("L") > threshold))
             {
-                if((bird.getLine("R") < threshold))
-            {
-                bird.setMotors(30,0);
-            }
-            else
-            {
-                bird.setMotors(0,30);
-            }
+                bird.setMotors(20,20);
             }
             else
             {
                 bird.stop();
+                
             }
             
+            
+            
         }
+        System.out.println("Left Wheel Distance: " + getWheelDistance(bird, "L"));
+                System.out.println("Right Wheel Distance: " + getWheelDistance(bird, "R"));
+        
         bird.stop();
     }
+    
+    public static double getWheelDistance(Finch bird, String s)
+    {
+        double distance = Math.PI * 5 * bird.getEncoder(s);
+        
+        return distance;
+    }
+    
+    public static void lesson12(Finch bird)
+    {
+        bird.resetEncoders();
+        bird.setMotors(50, 50);
+        bird.pause(1);
+        bird.stop();
+        
+        System.out.println("Left Wheel Distance: " + getWheelDistance(bird, "L"));
+        System.out.println("Right Wheel Distance: " + getWheelDistance(bird, "R"));
+    }
+    
+    
 }
