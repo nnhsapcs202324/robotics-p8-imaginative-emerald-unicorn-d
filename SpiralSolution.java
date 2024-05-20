@@ -12,43 +12,41 @@ public class SpiralSolution {
     
         bird.pause(5);
         getOutOfBox(bird);
+        centerToEdge(bird);
     
         //Heading set to 90 deg right
-        bird.setTurn("R", 90,50);
+        //bird.setTurn("R", 90,50);
         compassAngleOffset = bird.getCompass();
     
         //Start 
     }
 
     public static void getOutOfBox(Finch bird){
-        double left = bird.getLight("L");
-        double right = bird.getLight("R");
-        
-        while(Math.abs(left-right) == 0 && left > 20){
-            left = bird.getLight("L");
-            right = bird.getLight("R");
-        
-        if(left > right){
-            bird.setTurn("L",1,80);
-        } else {
-            bird.setTurn("R",1,80);
+        while(bird.getDistance() < 50){
+            bird.setTurn("L",3,100);
         }
-        
-        left = bird.getLight("L");
-        right = bird.getLight("R");
-        }
-        bird.setMove("F",25,100);
+        bird.setTurn("L",45,50);
+        bird.setMotors(0,0);
     }
 
     public static void centerToEdge(Finch bird){
-        while(bird.getLine("R") > 80 || bird.getLine("L") > 80){
-            bird.setMotors(80,80);
+        bird.setMotors(50,50);
+        bird.pause(1);
+        bird.setMotors(0,0);
+        bird.pause(1);
+        while(bird.getLine("R") > 98 || bird.getLine("L") > 98){
+            bird.setMotors(20,20);
+            System.out.println(bird.getLine("R"));
         }
+        bird.setMotors(0,0);
     }
-
-    public static void clear(){
-        for(int i = 1; i <= 4; i++){
-            while(true){}
-        }
+    
+    public static void alignSpiral(Finch bird){
+        bird.setMove("B",15,20);
+        bird.setTurn("R",80,10);
+        //while()
+        //bird.setMotors(60,55);
+        //bird.setMotors
     }
+    
 }

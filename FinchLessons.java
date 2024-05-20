@@ -12,22 +12,17 @@ public class FinchLessons
         double time = 0;
         double gap = 0.5;
         
-        //lesson1_Movement(bird)
-        // for(int i = 0; i< 1000 ; i++){
-            // System.out.println("Time: " + time);
-            // bird.pause(gap);
-            // lesson2_Sensors(bird);
-            // time += gap;
-        // }
+        // lesson1_Movement(bird)
+        for(int i = 0; i< 1000 ; i++){
+            System.out.println("Time: " + time);
+            bird.pause(gap);
+            lesson2_Sensors(bird);
+            time += gap;
+        }
         
         //lesson4_MotorControl(bird);
         boolean run = true;
-        while(run){
-           lesson9(bird);
-           if(bird.getButton("A")){
-               run = false;
-           }
-        }
+        
         
         
         bird.disconnect();
